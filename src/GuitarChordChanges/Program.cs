@@ -35,7 +35,7 @@ namespace GuitarChordChanges
             // Find out chord changes with lowest number
             foreach (ChordChange change in chordChanges.OrderBy(x => !x.ChordChangeRecords.Any() ? 0 : x.ChordChangeRecords.OrderByDescending(x => x.DateTime).Select(x => x.Count).Take(settings.AverageLookback).Average()).Take(settings.PracticeCount))
             {
-                Console.Write(change.Chord1 + "-" + change.Chord2 + ": ");
+                Console.Write($"{change.Chord1}-{change.Chord2} ({Math.Round(!change.ChordChangeRecords.Any() ? 0 : change.ChordChangeRecords.OrderByDescending(x => x.DateTime).Select(x => x.Count).Take(settings.AverageLookback).Average())}): ");
                 int count = int.Parse(Console.ReadLine());
                 change.ChordChangeRecords.Add(new ChordChangeRecord() { Count = count, DateTime = DateTime.Now });
             }
